@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Quest: Choices-Style Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('background.jpg');
+            background-size: cover;
+        }
+        .game-container {
+            width: 80%;
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            text-align: center;
+        }
+        .story {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .choices {
+            display: flex;
+            flex-direction: column;
+        }
+        .choice {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .choice:hover {
+            background-color: #45a049;
+        }
+        .image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <img src="start.jpg" alt="Start Image" class="image" id="story-image">
+        <div class="story" id="story-text">Welcome to Energy Quest! Your journey to create a sustainable future begins now. What will you do first?</div>
+        <div class="choices" id="choices">
+            <button class="choice" onclick="makeChoice('explore')">Explore the city</button>
+            <button class="choice" onclick="makeChoice('build')">Build a renewable energy plant</button>
+        </div>
+    </div>
+    <script>
+        const storyText = document.getElementById('story-text');
+        const storyImage = document.getElementById('story-image');
+        const choices = document.getElementById('choices');
+
+        function makeChoice(choice) {
+            if (choice === 'explore') {
+                storyText.innerHTML = 'You decide to explore the city. You see various buildings and people going about their day. Suddenly, you notice a power outage in a nearby neighborhood. What will you do?';
+                storyImage.src = 'city.jpg';
+                choices.innerHTML = `
+                    <button class="choice" onclick="makeChoice('investigate')">Investigate the outage</button>
+                    <button class="choice" onclick="makeChoice('ignore')">Ignore and continue exploring</button>
+                `;
+            } else if (choice === 'build') {
+                storyText.innerHTML = 'You decide to build a renewable energy plant. You have options to build a solar plant or a wind farm. Which one will you choose?';
+                storyImage.src = 'construction.jpg';
+                choices.innerHTML = `
+                    <button class="choice" onclick="makeChoice('solar')">Build Solar Plant</button>
+                    <button class="choice" onclick="makeChoice('wind')">Build Wind Farm</button>
+                `;
+            } else if (choice === 'investigate') {
+                storyText.innerHTML = 'You investigate the outage and find that the power lines are damaged. You need to find a way to restore power. What will you do?';
+                storyImage.src = 'outage.jpg';
+                choices.innerHTML = `
+                    <button class="choice" onclick="makeChoice('repair')">Repair the lines</button>
+                    <button class="choice" onclick="makeChoice('call')">Call for help</button>
+                `;
+            } else if (choice === 'ignore') {
+                storyText.innerHTML = 'You ignore the outage and continue exploring. You find a park where people are discussing renewable energy. What will you do?';
+                storyImage.src = 'park.jpg';
+                choices.innerHTML = `
+                    <button class="choice" onclick="makeChoice('join')">Join the discussion</button>
+                    <button class="choice" onclick="makeChoice('leave')">Leave the park</button>
+                `;
+            } else if (choice === 'solar') {
+                storyText.innerHTML = 'You build a solar plant. It starts generating clean energy for the community. Congratulations! You have made a positive impact. What will you do next?';
+                storyImage.src = 'solar.jpg';
+                choices.innerHTML = `
+                    <button class="choice" onclick="makeChoice('expand')">Expand the plant</button>
+                    <button class="choice" onclick="makeChoice('educate')">Educate the community</button>
+                `;
+            } else if (choice === 'wind') {
+                storyText.innerHTML = 'You build a wind farm. It starts generating clean energy for the community. Congratulations! You have made a positive impact. What will you do next?';
+                storyImage.src = 'wind.jpg';
+                choices.innerHTML = `
+                    <button class="choice" onclick="makeChoice('expand')">Expand the farm</button>
+                    <button class="choice" onclick="makeChoice('educate')">Educate the community</button>
+                `;
+            } else if (choice === 'repair') {
+                storyText.innerHTML = 'You repair the power lines and restore electricity to the neighborhood. The residents are grateful for your help. What will you do next?';
+                storyImage.src = 'repair.jpg';
+                choices.innerHTML = `
+                    <button class="choice" onclick="makeChoice('explore')">Explore the city</button>
+                    <button class="choice" onclick="makeChoice('build')">Build a renewable energy plant</button>
+                `;
+            } else if (choice === 'call') {
+                storyText.innerHTML = 'You call for help and a team arrives to repair the power lines. The neighborhood is grateful for your quick thinking. What will you do next?';
+                storyImage.src = 'call.jpg';
+                choices.innerHTML = `
+                    <button class="choice" onclick="makeChoice('explore')">Explore the city</button>
+                    <button class="choice" onclick="makeChoice('build')">Build a renewable energy plant</button>
+                `;
+            } else if (choice === 'join') {
+                storyText.innerHTML = 'You join the discussion and share your knowledge about renewable energy. The community is inspired by your ideas. What will you do next?';
+                storyImage.src = 'discussion.jpg';
+                choices.innerHTML = `
+                    <button class="choice" onclick="makeChoice('educate')">Educate the community</button>
+                    <button class="choice" onclick="makeChoice('build')">Build a renewable energy plant</button>
+                `;
+            } else if (choice === 'leave') {
+                storyText.innerHTML = 'You leave the park and continue exploring the city. You find a renewable energy expo. What will you do?';
+                storyImage.src = 'expo.jpg';
+                choices.innerHTML = `
+                    <button class="choice" onclick="makeChoice('attend')">Attend the expo</button>
+                    <button class="choice" onclick="makeChoice('explore')">Explore the city</button>
+                `;
+            } else if (choice === 'expand') {
+                storyText.innerHTML = 'You expand your renewable energy project, increasing its capacity and impact. The community benefits greatly from your efforts. What will you do next?';
+                storyImage.src = 'expand.jpg';
+                choices.innerHTML = `
+                    <button class="choice" onclick="makeChoice('educate')">Educate the community</button>
+                    <button class="choice" onclick="makeChoice('explore')">Explore the city</button>
+                `;
+            } else if (choice === 'educate') {
+                storyText.innerHTML = 'You educate the community about renewable energy and sustainability. People are inspired to make positive changes. What will you do next?';
+                storyImage.src = 'educate.jpg';
+                choices.innerHTML = `
+                    <button class="choice" onclick="makeChoice('expand')">Expand your project</button>
+                    <button class="choice" onclick="makeChoice('explore')">Explore the city</button>
+                `;
+            } else if (choice === 'attend') {
+                storyText.innerHTML = 'You attend the renewable energy expo and learn about the latest technologies and innovations. You are inspired to implement new ideas. What will you do next?';
+                storyImage.src = 'expo.jpg';
+                choices.innerHTML = `
+                    <button class="choice" onclick="makeChoice('educate')">Educate the community</button>
+                    <button class="choice" onclick="makeChoice('build')">Build a renewable energy plant</button>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

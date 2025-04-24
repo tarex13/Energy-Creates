@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="favicon.png" type="image/x-icon">
+	<title>EcoQuest: Alimenter le Canada</title>
+</head>
+<body>
+	<div class="main">
+		<div class="money">$100,000,000</div>
+
+		<span id="type"></span>
+		<div class="welcome">
+			<button class="button1"></button>
+			<button class="french" onclick="location.href = 'Energy.html';">Anglais</button>
+			<div id="bottom">
+				<img class="person1" src="left1.png"><img class="person2" src="right1.png">
+				<button class="button2"></button>
+				<button class="button3"></button>
+				<div id="nstep"><span class="nstep"></span></div>
+				<button class="button4"></button>
+			</div>
+		</div>
+
+
+	</div>	
+
+
+
+	<div class="container">
+		<h1>EcoQuest</h1>
+		<div id="quiz">
+			<!-- Questions will be dynamically inserted here -->
+		</div>
+		<div class="navigation">
+			<button id="prevBtn" onclick="prevQuestion()" disabled>Précédent</button>
+			<button id="nextBtn" onclick="nextQuestion()">Suivant</button>
+			<button id="submitBtn" onclick="calculateResults()" style="display: none;">Soumettre</button>
+		</div>
+		<div id="results" class="result"></div>
+	</div>
+
+	<style type="text/css">
+		body{
+			background-image: url('baseImg_.png');
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-size: cover;
+		}
+		.main{
+			transition: opacity 1.5s ease-in-out;
+			box-shadow: 9px 9px 20px 4px rgb(0 0 0 / 70%);
+			border: 1px solid rgba(255, 255, 255, 0.18);
+			padding: 30px 0;
+			text-align: center;
+			background: rgb(255 255 255 / 80%);
+			position: fixed;
+			inset: 0px;
+			width: 75vw;
+			height: fit-content;
+			min-height: 50vh;
+			max-width: 100vw;
+			max-height: 100dvh;
+			margin: auto;
+			border-radius: 15px;
+		}
+
+		.money{
+			position: absolute;
+			top: -67px;
+			padding: 10px;
+			font-size: xx-large;
+			background: #658f3c;
+			font-family: cursive;
+			border-top-right-radius: 15px;
+			border-top-left-radius: 15px;
+			right: 10px;
+			color: white;
+		}
+
+		#type {
+			padding: 0 0.6vw;
+			font-family: monospace;
+			font-size: 1.8vw;
+    line-height: 5.5vh;
+			overflow: hidden; /* Ensures the content is not revealed until the animation */
+			border-right: .15em solid orange; /* The typwriter cursor */
+			margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+			letter-spacing: .15em; /* Adjust as needed */
+			animation: 
+			blink-caret .5s step-end infinite;
+		}
+
+
+		#nstep{
+			display: none;
+			width: 65vw;
+			position: absolute;
+		}
+
+		#nstep span{
+			padding: 0 0.6vw;
+			font-family: monospace;
+			font-size: x-large;
+			line-height: 6vh;
+			overflow: hidden;
+			margin: 0 auto;
+			letter-spacing: .15em;
+			width: 40vw;
+			position: absolute;
+			transform: translate(-50%, 0 );
+			text-align: left;
+			left: 59%;
+			border: 4px solid black;
+			box-shadow: 9px 9px 20px 4px rgb(0 0 0 / 70%);
+		}
+
+
+
+		.button1{
+			position: absolute;
+			bottom: 5vh;
+			right: 2vw;
+			border: none;
+			padding: 10px;
+			font-size: large;
+			font-family: cursive;
+			border-radius: 15px;
+			background: #e37e22;
+			color: white;
+			box-shadow: 9px 9px 20px 4px rgb(0 0 0 / 60%);
+			cursor: pointer;
+		}
+
+		.button1:hover{
+			border: 3px solid white;
+			padding: 7px;
+		}
+
+		.french{
+			position: absolute;
+			bottom: 5vh;
+			left: 2vw;
+			border: none;
+			padding: 10px;
+			font-size: large;
+			font-family: cursive;
+			border-radius: 15px;
+			background: #658f3c;
+			color: white;
+			box-shadow: 9px 9px 20px 4px rgb(0 0 0 / 60%);
+			cursor: pointer;
+		}
+		.button2{
+			position: absolute;
+    bottom: 30vh;
+    border: none;
+    padding: 10px;
+    font-size: 1.5vw;
+    font-family: cursive;
+    border-radius: 15px;
+    background: #34819c;
+    color: white;
+    box-shadow: 9px 9px 20px 4px rgb(0 0 0 / 60%);
+    cursor: pointer;
+    max-width: 40vw;
+    visibility: hidden;
+    transform: translate(-50%, 0);
+    left: 50%;
+		}
+
+		.button2:hover{
+			border: 3px solid white;
+			padding: 7px;
+		}
+
+		.button3{
+			visibility: hidden;
+    position: absolute;
+    bottom: 20vh;
+    border: none;
+    padding: 10px;
+    font-size: 1.5vw;
+    font-family: cursive;
+    border-radius: 15px;
+    background: #e37e22;
+    color: white;
+    box-shadow: 9px 9px 20px 4px rgb(0 0 0 / 60%);
+    cursor: pointer;
+    transform: translate(-50%, 20%);
+    left: 50%;
+    cursor: pointer;
+    max-width: 40vw;
+		}
+
+		.button3:hover{
+			border: 3px solid white;
+			padding: 7px;
+		}
+
+		.button4{
+			position: absolute;
+			bottom: 0;
+			right: 16vw;
+			border: none;
+			padding: 12px;
+			font-size: xx-large;
+			font-family: cursive;
+			border-radius: 10px;
+			color: white;
+			box-shadow: 9px 9px 20px 4px rgb(0 0 0 / 60%);
+			cursor: pointer;
+			background: radial-gradient(circle at 10% 20%, rgb(90, 92, 106) 0%, rgb(32, 45, 58) 81.3%);
+			visibility: hidden;
+		}
+
+		.welcome{
+
+			/*display: flex;*/
+			flex-direction: column;
+			/*position: relative*/;
+		}
+
+		#bottom{
+			
+			position: relative;
+			bottom: 0;
+			height: 100%;
+		}
+
+		.person1{
+			height: 50vh;
+			bottom: 0;
+			left: 0;
+			position: absolute;
+			display: none;
+		}
+		.person2{
+			height: 50vh;
+			float: right;
+			bottom: 0px;
+			display: none;
+		}
+
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+	from, to { border-color: transparent }
+	50% { border-color: orange }
+}
+
+
+
+
+
+
+
+.container {
+	box-shadow: 9px 9px 20px 4px rgb(0 0 0 / 70%);
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	padding: 30px 0;
+	text-align: center;
+	background: rgb(255 255 255 / 80%);
+	position: fixed;
+	inset: 0px;
+	width:50vw;
+	height: fit-content;
+	min-height: 50vh;
+	max-width: 100vw;
+	max-height: 100dvh;
+	margin: auto;
+	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	opacity: 0;
+	transition: opacity 1.5s ease-in-out;
+	display: none;
+}
+h1 {
+	text-align: center;
+	color: #2C3E50;
+	border-bottom: 7px dashed #BDC3C7;
+	padding-bottom: 11px;
+	margin: 10px;
+	font-size: 3em;
+}
+.question {
+	line-height: 3;
+	display: none;
+}
+.question.active {
+	display: block;
+}
+.question label {
+	display: block;
+	margin-bottom: 15px;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+.question input[type="range"] {
+	margin-bottom: 15px;
+}
+.question p {
+	margin-top: 10px;
+	font-size: 0.9em;
+	color: #6c757d;
+}
+.navigation {
+	text-align: center;
+	margin-top: 30px;
+}
+.navigation button {
+	color: white;
+	border: none;
+	padding: 12px 25px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 1em;
+	margin: 0 10px;
+	transition: background-color 0.3s;
+}
+#prevBtn{
+	background-color: #4682B4
+}
+#prevBtn:disabled{
+
+	background-color: #6c757d;
+}
+#nextBtn{
+	background-color: #e37e22;
+}
+#submitBtn{
+	background-color: #e37e22;
+}
+.images{
+	height: 19vh;
+}
+
+.navigation button:disabled {
+	background-color: #6c757d;
+}
+.result {
+	text-align: center;
+	margin-top: 30px;
+}
+
+.active span{
+	border-bottom: 4px dashed #bdc3c7;
+	text-align: center;
+	font-weight: bold;
+	font-size: 5em;
+	width: 300px;
+	height: 100px;
+	line-height: 60px;
+	letter-spacing: -.07em;
+	text-shadow: white 2px 2px 2px;
+}
+input[type="range"] {
+	display: block;
+	-webkit-appearance: none;
+	background-color: #bdc3c7;
+	width: 300px;
+	height: 5px;
+	border-radius: 5px;
+	margin: 0 auto;
+	outline: 0;
+}
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	background-color: #4682B4;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	border: 2px solid white;
+	cursor: pointer;
+	transition: .3s ease-in-out;
+}&ZeroWidthSpace;
+input[type="range"]::-webkit-slider-thumb:hover {
+	background-color: white;
+	border: 2px solid #e74c3c;
+}
+input[type="range"]::-webkit-slider-thumb:active {
+	transform: scale(1.3);
+}
+
+.depImg{
+	width: 20vw;
+}
+
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {...}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {...}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {...}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {...}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {...}
+
+
+
+
+
+
+
+
+</style>
+<script>
+	var money = 100000000;
+
+	var speed = 5; 
+	//Phase 1.
+	function phase1() {
+	//Text Type Counter
+		var i = 0;
+	// Button Type Counter
+		var j = 0;
+	//Start Text
+		var txt = 'Bienvenue à EcoQuest ! Vous êtes un aspirant expert en énergie chargé de résoudre divers défis énergétiques au Canada. Vous commencez avec un budget de 100 millions de dollars. Vous avez le choix de poursuivre votre quête en français en cliquant sur Continuer, ou en français en cliquant sur Anglais.';
+		var button1Txt = "Cliquez pour continuer!!!";
+		function typeWriter() {
+			if (i < txt.length) {
+				document.getElementById("type").innerHTML += txt.charAt(i);
+				i++;
+				setTimeout(typeWriter, speed);
+			}else{
+				if (j<button1Txt.length) {
+					document.querySelector(".button1").innerHTML += button1Txt.charAt(j);
+					j++;
+					setTimeout(typeWriter, speed);
+				}else{
+					document.querySelector(".button1").addEventListener("click",(e)=>{
+						document.querySelector(".button1").style.display = "none";
+						document.querySelector(".french").style.display = "none";						
+						erase(phase2);
+						//phase2();
+					});
+				}
+			}
+		}
+		typeWriter();
+	}
+	phase1();
+
+	function formatMoney(amount) {
+		return "$" + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
+	function updateMoney(amount) {
+		var currentMoney = parseInt(document.querySelector(".money").innerText.replace(/[$,]/g, ""));
+		var targetMoney = currentMoney + amount;
+		var increment = amount < 0 ? -1 : 1;
+        var step = Math.abs(amount) / 100;
+
+
+        function animateMoney() {
+        	if ((increment < 0 && currentMoney > targetMoney) || (increment > 0 && currentMoney < targetMoney)) {
+        		currentMoney += increment * step;
+        		document.querySelector(".money").innerText = formatMoney(Math.round(currentMoney));
+	            setTimeout(animateMoney, 10); // Adjust the speed of the animation
+	        } else {
+	        	document.querySelector(".money").innerText = formatMoney(targetMoney);
+	        }
+	    }
+	    animateMoney();
+	}
+
+
+//Erase Function: For changing phases
+	// The argument is for the  next function to go to
+	function erase(myCallbackFunction) {
+		var wordCount = document.querySelector("#type").innerHTML.length;
+		var buttonCount1 = document.querySelector(".button1").innerHTML.length;
+		var buttonCount2 = document.querySelector(".button2").innerHTML.length;
+		var buttonCount3 = document.querySelector(".button3").innerHTML.length;
+		var buttonCount4 = document.querySelector(".button4").innerHTML.length;
+		var nCount = document.querySelector(".nstep").innerHTML.length;
+
+		if (wordCount > 0) {
+        // Remove two characters at a time using slicing
+			document.querySelector("#type").innerHTML = document.querySelector("#type").innerHTML.slice(0, -1);
+			setTimeout(function() {
+				erase(myCallbackFunction);
+			}, speed);
+		} else if (buttonCount1 > 0) {
+			document.querySelector(".button1").innerHTML = document.querySelector(".button1").innerHTML.slice(0, -1);
+			setTimeout(function() {
+				erase(myCallbackFunction);
+			}, speed);
+		} else if (buttonCount2 > 0 || buttonCount3 > 0) {
+			if (buttonCount2 > 0) {
+				document.querySelector(".button2").innerHTML = document.querySelector(".button2").innerHTML.slice(0, -1);
+			}
+			if (buttonCount3 > 0) {
+				document.querySelector(".button3").innerHTML = document.querySelector(".button3").innerHTML.slice(0, -1);
+			}
+			setTimeout(function() {
+				erase(myCallbackFunction);
+			}, speed);
+		} else if(nCount > 0){
+			document.querySelector(".nstep").innerHTML = document.querySelector(".nstep").innerHTML.slice(0, -1);
+			setTimeout(function() {
+				erase(myCallbackFunction);
+			}, speed);
+		}else {
+			setTimeout(myCallbackFunction, speed);
+		}
+	}
+
+	function phase(txt, choice2, choice3, fcn2, fcn3, nstep, end) {
+		var i = 0;
+		var j = 0;
+		var n = 0;
+		var e = 0;
+
+		function typeWriter() {
+			if (i < txt.length) {
+				document.getElementById("type").innerHTML += txt.charAt(i);
+				i++;
+				setTimeout(typeWriter, speed);
+			} else if (typeof nstep !== 'undefined') {
+				document.querySelector(".button2").style.visibility = "hidden";
+				document.querySelector(".button3").style.visibility = "hidden";
+				document.querySelector(".button4").style.visibility = "visible";
+				document.querySelector("#nstep").style.display = "block";
+				if (n < nstep.length) {
+					document.querySelector(".nstep").innerHTML += nstep.charAt(n);
+					n++;
+					setTimeout(typeWriter, speed);
+
+				}else{
+					if(typeof end != 'undefined'){
+						console.log("1");
+						document.querySelector(".button4").innerHTML = "Continuer";
+						document.querySelector(".button4").addEventListener("click", (e) => {
+							erase(end);
+						}, { once: true });
+					}else{
+						document.querySelector(".button4").innerHTML = "Continuer";
+						document.querySelector(".button4").addEventListener("click", (e) => {
+							erase(phaseEnd);
+						}, { once: true });
+					}
+				}
+
+			} else {
+				if (j < choice2.length || j < choice3.length) {
+					if (j < choice2.length) {
+						document.querySelector(".button2").innerHTML += choice2.charAt(j);
+					}
+					if (j < choice3.length) {
+						document.querySelector(".button3").innerHTML += choice3.charAt(j);
+					}
+					j++;
+					setTimeout(typeWriter, speed);
+				} else {
+					console.log("Adding event listeners for buttons");
+
+                // Remove existing event listeners
+					var newButton2 = document.querySelector(".button2").cloneNode(true);
+					document.querySelector(".button2").replaceWith(newButton2);
+					var newButton3 = document.querySelector(".button3").cloneNode(true);
+					document.querySelector(".button3").replaceWith(newButton3);
+
+                // Add new event listeners
+					newButton2.addEventListener("click", (e) => {
+						erase(fcn2);
+					}, { once: true });
+					newButton3.addEventListener("click", (e) => {
+						erase(fcn3);
+					}, { once: true });
+				}
+			}
+		}
+		typeWriter();
+	}
+
+	function phaseEnd(argument) {	
+
+		var txt = "Vos projets énergétiques novateurs et vos décisions stratégiques ont transformé le Canada en un chef de file mondial en matière d'énergie renouvelable. L'économie est florissante, les citoyens sont heureux et le Canada est reconnu comme un pionnier de l'énergie durable.";
+		var nstep = "Félicitations ! Vos efforts ont créé un avenir durable et prospère pour le Canada. Vous avez réussi à équilibrer la croissance financière avec la satisfaction des citoyens, en ayant un impact durable sur le monde.";
+		var fcn2 = phase2_1_1;
+		var fcn3 = phase2_1_2;
+		phase(txt, "", "", fcn2, fcn3, nstep, eraseNstepPhaseNstep);
+
+
+	}
+
+
+	function eraseNstepPhaseNstep(){
+		document.querySelector("#type").style.display = "none";
+		document.querySelector("#bottom").style="min-height:60vh;";
+		var nstep = "Bravo! Vous avez ouvert la voie à un avenir meilleur au Canada. Mais comment vous en sortez-vous en ce qui concerne votre consommation d'énergie personnelle? Il est temps de mettre vos connaissances à l'épreuve ! Cliquez sur « Continuer » pour terminer votre quête en découvrant à quel point vous êtes vraiment écoénergie!";
+		var n=0;
+
+		function erase() {
+			var nstepcount = document.querySelector(".nstep").innerHTML.length;
+			if (nstepcount > 0) {
+        // Remove two characters at a time using slicing
+				document.querySelector(".nstep").innerHTML = document.querySelector(".nstep").innerHTML.slice(0, -1);
+				setTimeout(function() {
+					erase();
+				}, speed);
+			}else{
+				phase();
+			}
+		}
+
+
+		function phase() {
+			if (n < nstep.length) {
+				document.querySelector(".nstep").innerHTML += nstep.charAt(n);
+				n++;
+				setTimeout(phase, speed);
+			}else{
+
+				var newButton4 = document.querySelector(".button4").cloneNode(true);
+				document.querySelector(".button4").replaceWith(newButton4);
+				document.querySelector(".button4").innerHTML = "Continuer";
+				document.querySelector(".button4").addEventListener("click", (e) => {
+					window.erase(createQuiz);
+				}, { once: true });
+			}
+		}
+
+
+		erase();
+
+	}
+
+const questions = [
+    { question: "Combien de tasses de café/thé buvez-vous par jour ?", weight: 1, max: 10, info: "Le saviez-vous ? L'énergie utilisée pour préparer le café contribue à la culture vibrante du café au Canada.", img: "coffee.png" },
+    { question: "Combien d'heures passez-vous à utiliser des appareils électroniques par jour ?", weight: 3, max: 24, info: "L'industrie technologique du Canada est en plein essor, grâce à notre infrastructure énergétique fiable.", img: "phone.png" },
+    { question: "Combien de kilomètres conduisez-vous par jour ?", weight: 4, max: 100, info: "Le transport est un grand consommateur d'énergie. Les vastes distances du Canada rendent l'utilisation efficace de l'énergie cruciale.", img: "car.png" },
+    { question: "Combien de fois utilisez-vous le micro-ondes par jour ?", weight: 2, max: 10, info: "Les micro-ondes sont économes en énergie pour les repas rapides, reflétant notre mode de vie rapide.", img: "microwave.png" },
+    { question: "Combien d'heures passez-vous à regarder la télévision par jour ?", weight: 2, max: 12, info: "Le divertissement est une grande partie de la vie canadienne, alimentée par notre secteur énergétique robuste.", img: "tv.png" },
+    { question: "Combien de fois utilisez-vous un sèche-cheveux par semaine ?", weight: 2, max: 14, info: "Les appareils de soins personnels sont petits mais consomment une quantité significative d'énergie.", img: "dryer.png" },
+    { question: "Combien de minutes passez-vous à utiliser de l'eau chaude pour les douches par jour ?", weight: 3, max: 100, info: "Le chauffage de l'eau chaude est une utilisation majeure de l'énergie dans les foyers canadiens, surtout en hiver.", img: "shower.png" },
+    { question: "Combien de fois utilisez-vous un lave-vaisselle par semaine ?", weight: 4, max: 14, info: "Les lave-vaisselles économisent du temps et de l'eau, mais ils consomment également beaucoup d'énergie.", img: "dishwasher.png" },
+    { question: "Combien d'heures passez-vous à utiliser l'éclairage par jour ?", weight: 2, max: 24, info: "L'éclairage économe en énergie peut réduire considérablement la consommation d'énergie.", img: "light.png" },
+    { question: "Combien de fois utilisez-vous des appareils de lessive par semaine ?", weight: 5, max: 14, info: "Les sèche-linges sont parmi les appareils les plus énergivores dans les foyers.", img: "laundry.png" },
+    { question: "Combien de fois chargez-vous vos appareils électriques par jour ?", weight: 2, max: 10, info: "Les appareils mobiles sont essentiels dans notre vie quotidienne, contribuant à la consommation globale d'énergie.", img: "power.png" },
+    { question: "Combien d'heures passez-vous à utiliser un chauffage/climatiseur par semaine ?", weight: 5, max: 14, info: "Les systèmes de chauffage et de climatisation sont de grands consommateurs d'énergie, surtout dans le climat diversifié du Canada.", img: "heatcool.png" },
+];
+
+
+	let currentQuestionIndex = 0;
+
+	function createQuiz() {
+
+		document.querySelector(".container").style.display = "block";
+
+		document.querySelector(".main").style.opacity = "0";
+		setTimeout(function(){
+
+			document.querySelector(".main").style.display = "none";
+			document.querySelector(".container").style.opacity = "1";
+		}, speed)
+		const quizContainer = document.getElementById('quiz');
+		questions.forEach((q, index) => {
+			const questionDiv = document.createElement('div');
+			questionDiv.className = 'question';
+			if (index === 0) questionDiv.classList.add('active');
+			questionDiv.innerHTML = `
+			<img class="images" src="${q.img}">
+			<label for="q${index}">${q.question}</label>
+			<input type="range" id="q${index}" name="q${index}" min="0" max="${q.max}" value="0" oninput="updateValue(${index}, this.value)">
+			<span id="q${index}Value">0</span>
+			<p>${q.info}</p>
+			`;
+			quizContainer.appendChild(questionDiv);
+		});
+	}
+
+	function updateValue(index, value) {
+		document.getElementById(`q${index}Value`).textContent = value;
+	}
+
+	function nextQuestion() {
+		const questions = document.querySelectorAll('.question');
+		questions[currentQuestionIndex].classList.remove('active');
+		currentQuestionIndex++;
+		questions[currentQuestionIndex].classList.add('active');
+		document.getElementById('prevBtn').disabled = false;
+		if (currentQuestionIndex === questions.length - 1) {
+			document.getElementById('nextBtn').style.display = 'none';
+			document.getElementById('submitBtn').style.display = 'inline-block';
+		}
+	}
+
+	function prevQuestion() {
+		const questions = document.querySelectorAll('.question');
+		questions[currentQuestionIndex].classList.remove('active');
+		currentQuestionIndex--;
+		questions[currentQuestionIndex].classList.add('active');
+		document.getElementById('nextBtn').style.display = 'inline-block';
+		document.getElementById('submitBtn').style.display = 'none';
+		if (currentQuestionIndex === 0) {
+			document.getElementById('prevBtn').disabled = true;
+		}
+	}
+
+function calculateResults() {
+    let totalEnergyUse = 0;
+    questions.forEach((q, index) => {
+        const userResponse = document.getElementById(`q${index}`).value;
+        const energyUse = userResponse * q.weight;
+        totalEnergyUse += energyUse;
+    });
+
+    let dependencyLevel = '';
+    if (totalEnergyUse < 250) {
+        dependencyLevel = 'Faible';
+    } else if (totalEnergyUse >= 250 && totalEnergyUse < 350) {
+        dependencyLevel = 'Modéré';
+    } else {
+        dependencyLevel = 'Élevé';
+    }
+
+    const resultsContainer = document.getElementById('results');
+    resultsContainer.innerHTML = `
+        <p>Votre niveau de dépendance énergétique est : ${dependencyLevel}</p>
+        <img class="depImg" src="${dependencyLevel}.png">
+        <p>${getInsights(dependencyLevel)}</p>
+        <p>Félicitations pour avoir terminé l'écoquête. Bon travail !!! N'oubliez pas, l'énergie est un secteur vital qui façonne nos vies, dynamise l'économie et renforce notre pays à l'échelle mondiale.</p>
+    `;
+    document.getElementById('quiz').style.display = 'none';
+    document.querySelector('.navigation').style.display = 'none';
+}
+
+function getInsights(dependencyLevel) {
+    if (dependencyLevel === 'Faible') {
+        return "Vous avez une faible dépendance énergétique. Bravo pour votre efficacité énergétique ! Vos habitudes contribuent à un avenir durable pour le Canada.";
+    } else if (dependencyLevel === 'Modéré') {
+        return "Vous avez une dépendance énergétique modérée. Il y a des domaines où vous pouvez améliorer votre efficacité énergétique. Chaque petit geste aide à renforcer la durabilité énergétique du Canada.";
+    } else {
+        return "Vous avez une dépendance énergétique élevée. Envisagez d'adopter des habitudes plus économes en énergie pour réduire votre consommation. Vos efforts peuvent aider à renforcer le Canada sur la scène mondiale.";
+    }
+}
+
+//Phase 2
+function phase2() {
+    document.querySelector(".button2").style.visibility = "visible";
+    document.querySelector(".button3").style.visibility = "visible";
+
+    document.querySelector(".person1").style.display = "block";
+    document.querySelector(".person2").style.display = "block";
+    document.querySelector(".welcome").style = "display: flex; position: relative;";
+
+    //Start Text
+    var txt = 'Votre objectif est de dépenser judicieusement tout en assurant le confort et la satisfaction des citoyens canadiens. Que ferez-vous en premier ?';
+    //Button on top
+    var button2Txt = "Enquêter sur une panne de courant dans une zone rurale !!!";
+    //Button on bottom
+    var button3Txt = "Développer un projet d'énergie renouvelable dans une ville";
+
+    var fcn2 = phase2_1;
+    var fcn3 = phase2_2;
+
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_Left choice = 2_1
+function phase2_1() {
+    //Start Text
+    var txt = 'Vous décidez d\'enquêter sur une panne de courant dans une zone rurale au Manitoba. À votre arrivée dans la ville de Churchill, vous constatez que le réseau électrique local est obsolète et sujet à des pannes. Que ferez-vous ?';
+    var button2Txt = "Mettre à niveau le réseau électrique (Coût : 20 millions de dollars)";
+    var button3Txt = "Introduire des solutions d'énergie renouvelable (Coût : 15 millions de dollars)";
+    var fcn2 = phase2_1_1;
+    var fcn3 = phase2_1_2;
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_1Left choice = 2_1_1
+function phase2_1_1() {
+    updateMoney(-20000000);
+    //Start Text
+    var txt = 'Vous décidez de mettre à niveau le réseau électrique. Cela implique un investissement et du temps considérables. Quelle approche allez-vous adopter ?';
+    var button2Txt = "Rechercher un financement gouvernemental (Gain : 20 millions de dollars)";
+    var button3Txt = "S'associer avec des entreprises privées (Gain : 25 millions de dollars)";
+    var fcn2 = phase2_1_1_1;
+    var fcn3 = phase2_1_1_2;
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+
+//Phase 2_1_1Left choice = 2_1_1_1
+function phase2_1_1_1() {
+    updateMoney(20000000);
+    //Start Text
+    var txt = 'Vous demandez un financement gouvernemental pour moderniser le réseau électrique. Le processus est lent, mais finalement, vous obtenez les fonds. Le réseau amélioré améliore la fiabilité et l\'efficacité. Que ferez-vous ensuite ?';
+    var button2Txt = "Éduquer la communauté sur la conservation de l'énergie (Coût : 5 millions de dollars)";
+    var button3Txt = "Explorer d'autres projets énergétiques (Gain : 30 millions de dollars)";
+
+    var fcn2 = phase2_1_1_1_1;
+    var fcn3 = phase2_1_1_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_1_1Left choice = 2_1_1_1
+function phase2_1_1_1_2() {
+    updateMoney(30000000);
+    //Start Text
+    var txt = 'Vous explorez d\'autres projets d\'énergie renouvelable, tels que l\'énergie géothermique ou hydroélectrique. Chaque projet présente des défis et des opportunités uniques.';
+    var nstep = "Votre approche innovante de l'énergie renouvelable a transformé Winnipeg en un leader des solutions énergétiques durables. Vous êtes maintenant invité à collaborer avec d'autres provinces sur des initiatives d'énergie renouvelable. (Coût : 20 millions de dollars, Gain : 50 millions de dollars en financement fédéral)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_1_1_1Left choice = 2_1_1_1_1
+function phase2_1_1_1_1() {
+    updateMoney(-5000000);
+    //Start Text
+    var txt = 'Vous organisez des ateliers et des séminaires pour éduquer la communauté de Winnipeg sur la conservation de l\'énergie. Les gens commencent à adopter des pratiques économes en énergie, réduisant la consommation globale. Que ferez-vous ensuite ?';
+    var button2Txt = "Étendre vos programmes éducatifs (Coût : 10 millions de dollars)";
+    var button3Txt = "Créer des ressources en ligne pour éduquer les résidents (Coût : 1 million de dollars)";
+
+    var fcn2 = phase2_1_1_1_1_1;
+    var fcn3 = phase2_1_1_1_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_1_1_1Left choice = 2_1_1_1_1
+function phase2_1_1_1_1_1() {
+    updateMoney(-10000000);
+    //Start Text
+    var txt = 'Vous décidez d\'étendre votre programme éducatif. Comment allez-vous procéder ?';
+    // var txt = 'Vous étendez vos programmes éducatifs pour inclure les écoles et les entreprises locales. La communauté devient plus consciente de l\'énergie, ce qui entraîne une réduction significative de la consommation d\'énergie.';
+    var btn2 = 'Développer une campagne de sensibilisation publique (Coût : 2 millions de dollars)';
+    var btn3 = 'Créer des ressources en ligne pour éduquer les résidents (Coût : 1 million de dollars)';
+
+    var fcn2 = phase2_1_1_1_1_1_1;
+    var fcn3 = phase2_1_1_1_1_2;
+    phase(txt, btn2, btn3, fcn2, fcn3);
+}
+
+//Phase 2_1_1_1Left choice = 2_1_1_1_1
+function phase2_1_1_1_1_1_1() {
+    updateMoney(-2000000);
+    //Start Text
+    var txt = 'Vous développez une campagne de sensibilisation publique pour éduquer les résidents de Winnipeg sur la conservation de l\'énergie. Que voulez-vous faire ensuite ?';
+    var btn2 = 'S\'associer avec les écoles locales (Coût : 2 millions de dollars)';
+    var btn3 = 'S\'associer avec les entreprises locales (Gain : 8 millions de dollars)';
+
+    var fcn2 = phase2_1_1_1_1_1_1_1;
+    var fcn3 = phase2_1_1_1_1_1_1_1_2;
+    phase(txt, btn2, btn3, fcn2, fcn3);
+}
+
+//Phase 2_1_1_1Left choice = 2_1_1_1_1
+function phase2_1_1_1_1_1_1_1() {
+    updateMoney(-2000000);
+    //Start Text
+    var txt = 'Vous vous associez avec les écoles locales pour intégrer la conservation de l\'énergie dans le programme scolaire. Ce partenariat vise à éduquer les élèves sur l\'importance de la conservation de l\'énergie et à promouvoir des pratiques durables dès le plus jeune âge. Quelle est la prochaine étape ?';
+    var btn2 = 'Demander des subventions éducatives (Gain : 5 millions de dollars)';
+    var btn3 = 'Rechercher des parrainages auprès des entreprises locales (Gain : 8 millions de dollars)';
+
+    var fcn2 = phase2_1_1_1_1_1_1_1_1;
+    var fcn3 = phase2_1_1_1_1_1_1_1_2;
+    phase(txt, btn2, btn3, fcn2, fcn3);
+}
+
+
+//Phase 2_1_1_1Left choice = 2_1_1_1_1
+function phase2_1_1_1_1_1_1_1_1() {
+    updateMoney(5000000);
+    //Start Text
+    var txt = 'Vous demandez des subventions éducatives pour soutenir la campagne de sensibilisation publique. Ces subventions sont conçues pour promouvoir des initiatives éducatives et peuvent fournir un soutien financier significatif pour assurer le succès de la campagne.';
+    var nStep = "Les subventions éducatives fournissent un financement supplémentaire, assurant le succès de la campagne et permettant une expansion et des améliorations supplémentaires. (Gain : 5 millions de dollars en subventions)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    phase(txt, "", "", fcn2, fcn3, nStep);
+}
+
+//Phase 2_1_1_1Left choice = 2_1_1_1_1
+function phase2_1_1_1_1_1_1_1_2() {
+    updateMoney(8000000);
+    //Start Text
+    var txt = 'Vous recherchez des parrainages auprès des entreprises locales pour soutenir la campagne de sensibilisation publique. Ces entreprises fournissent des fonds et des ressources supplémentaires, assurant le succès de la campagne et promouvant la conservation de l\'énergie dans toute la communauté.';
+    var nStep = "Le parrainage des entreprises locales fournit un financement supplémentaire, rendant la campagne financièrement durable et encourageant une participation généralisée. (Gain : 8 millions de dollars en parrainage)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    phase(txt, "", "", fcn2, fcn3, nStep);
+}
+
+//Phase 2_1_1_1Left choice = 2_1_1_1_1
+function phase2_1_1_1_1_2() {
+    updateMoney(-1000000);
+    //Start Text
+    var txt = 'Vous développez des ressources en ligne incluant des outils interactifs et des vidéos, rendant les informations sur la conservation de l\'énergie plus engageantes et accessibles. Que souhaitez-vous faire ensuite ?';
+    // 'Vous développez de nouveaux projets énergétiques, tels que l\'installation de compteurs intelligents et d\'appareils économes en énergie. Ces initiatives améliorent encore l\'efficacité énergétique de la communauté.';
+    // var nStep = "Le projet de réseau intelligent a révolutionné la gestion de l'énergie à Churchill. Vous êtes invité à présenter votre projet lors d'un sommet international sur l'énergie à Toronto. (Coût : 10 millions de dollars, Gain : 20 millions de dollars en financement international)";
+
+    var btn2 = 'Monétiser la plateforme en ligne (Gain : 2 millions de dollars)';
+    var btn3 = 'Demander des subventions technologiques (Gain : 1 million de dollars)';
+
+    var fcn2 = phase2_1_1_1_1_2_1;
+    var fcn3 = phase2_1_1_1_1_2_2;
+    phase(txt, btn2, btn3, fcn2, fcn3);
+}
+
+//Phase 2_1_1_1Left choice = 2_1_1_1_1
+function phase2_1_1_1_1_2_1() {
+    updateMoney(2000000);
+    //Start Text
+    var txt = 'Vous monétisez la plateforme en ligne grâce à des publicités et des abonnements, générant des revenus supplémentaires pour soutenir le projet. Cette initiative assure la durabilité financière de la plateforme et permet une expansion et des améliorations supplémentaires.';
+    var nStep = "La monétisation de la plateforme en ligne génère des revenus supplémentaires, la rendant financièrement durable et fournissant une source de revenus stable. (Gain : 2 millions de dollars en revenus)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    phase(txt, "", "", fcn2, fcn3, nStep);
+}
+
+//Phase 2_1_1_1Left choice = 2_1_1_1_1
+function phase2_1_1_1_1_2_2() {
+    updateMoney(1000000);
+    //Start Text
+    var txt = 'Vous demandez des subventions technologiques pour soutenir le développement des ressources en ligne. Ces subventions sont conçues pour promouvoir des initiatives technologiques et peuvent fournir un soutien financier significatif pour assurer le succès du projet.';
+    var nStep = "Les subventions technologiques fournissent un financement supplémentaire, assurant le succès du projet et permettant une expansion et des améliorations supplémentaires. (Gain : 1 million de dollars en subventions)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    phase(txt, "", "", fcn2, fcn3, nStep);
+}
+
+//Phase 2_1_1Right choice = 2_1_1_2
+function phase2_1_1_2() {
+    updateMoney(25000000);
+    //Start Text
+    var txt = 'Vous vous associez à des entreprises privées pour moderniser le réseau électrique. Le projet progresse rapidement et le nouveau réseau est plus résilient. Cependant, la communauté est préoccupée par l\'implication d\'entités privées. Comment allez-vous répondre à leurs préoccupations ?';
+    var button2Txt = "Organiser des réunions communautaires pour expliquer les avantages (Gain : 5 millions de dollars)";
+    var button3Txt = "Offrir des incitations pour la conservation de l'énergie (Coût : 3 millions de dollars)";
+
+    var fcn2 = phase2_1_1_2_1;
+    var fcn3 = phase2_1_1_2_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_1_1_2Right choice = 2_1_1_2_1
+function phase2_1_1_2_1() {
+    updateMoney(5000000);
+    //Start Text
+    var txt = 'Vous organisez des réunions communautaires pour expliquer les avantages du réseau modernisé et le rôle des entreprises privées. La communauté accepte progressivement les changements.';
+    var nstep = "Le réseau modernisé a apporté stabilité et efficacité à Churchill. Vous avez maintenant l'opportunité d'étendre votre projet à d'autres zones rurales du Manitoba. (Coût : 5 millions de dollars, Gain : 10 millions de dollars en financement provincial)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_1_1_2Right choice = 2_1_1_2_2
+function phase2_1_1_2_2() {
+    updateMoney(-3000000);
+    //Start Text
+    var txt = "Vous offrez des incitations pour la conservation de l'énergie. C'est une idée qui plaît beaucoup à vos résidents. Souhaitez-vous étendre votre programme d'incitations ?";
+
+    var fcn2 = phase2_1_1_2_2_1;
+    var fcn3 = phase2_1_1_2_2_2;
+    
+    phase(txt, "Oui (Coût : 5 millions de dollars)", "Non (Gain : 15 millions de dollars)", fcn2, fcn3);
+}
+
+//Phase 2_1_1_2Right choice = 2_1_1_2_2_2
+function phase2_1_1_2_2_2() {
+    updateMoney(15000000);
+    //Start Text
+    var txt = "Vous offrez des incitations pour la conservation de l'énergie, telles que des réductions sur les factures d'énergie pour les ménages qui réduisent leur consommation. Cela encourage la communauté à adopter des pratiques économes en énergie.";
+    var nstep = "Le programme d'incitations a réussi à réduire la consommation d'énergie. Vous êtes maintenant invité à collaborer avec d'autres provinces pour mettre en œuvre des programmes similaires. (Coût : 10 millions de dollars, Gain : 25 millions de dollars en financement fédéral)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_1_1_2Right choice = 2_1_1_2_2_1
+function phase2_1_1_2_2_1() {
+    updateMoney(-5000000);
+    //Start Text
+    var txt = "Vous étendez le programme d'incitations pour inclure une gamme plus large de produits économes en énergie, encourageant davantage de résidents à participer. Cette expansion vise à réduire la consommation globale d'énergie et à promouvoir l'adoption de technologies économes en énergie. Quelle approche allez-vous adopter ensuite ?";
+    var btn2 = "S'associer avec des entreprises énergétiques (Gain : 5 millions de dollars)";
+    var btn3 = "Demander des rabais gouvernementaux (Gain : 4 millions de dollars)";
+
+    var fcn2 = phase2_1_1_2_2_1_1;
+    var fcn3 = phase2_1_1_2_2_1_2;
+    
+    phase(txt, btn2, btn3, fcn2, fcn3);
+}
+
+//Phase 2_1_1_2Right choice = 2_1_1_2_2_1_1
+function phase2_1_1_2_2_1_1() {
+    updateMoney(5000000);
+    //Start Text
+    var txt = "Vous vous associez à des entreprises énergétiques pour soutenir le programme d'incitations élargi. Ces entreprises fournissent des fonds et des ressources supplémentaires, assurant le succès du programme et promouvant l'efficacité énergétique dans toute la communauté.";
+    var nstep = "Le partenariat avec les entreprises énergétiques fournit un financement supplémentaire, assurant le succès du programme et promouvant l'adoption généralisée de produits économes en énergie. (Gain : 5 millions de dollars en soutien des entreprises)";
+
+    var fcn2 = phase2_1_1_2_1;
+    var fcn3 = phase2_1_1_2_1;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_1_1_2Right choice = 2_1_1_2_1
+function phase2_1_1_2_2_1_2() {
+    updateMoney(4000000);
+    //Start Text
+    var txt = "Vous demandez des rabais gouvernementaux pour soutenir le programme d'incitations élargi. Ces rabais sont conçus pour encourager l'efficacité énergétique et peuvent fournir un soutien financier significatif pour assurer le succès du programme.";
+    var nstep = "Les rabais gouvernementaux fournissent un financement supplémentaire, rendant le programme financièrement durable et encourageant davantage de résidents à participer. (Gain : 4 millions de dollars en rabais)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_1Right choice = 2_1_2
+function phase2_1_2() {
+    updateMoney(-15000000);
+    //Start Text
+    var txt = 'Vous décidez d\'introduire des solutions d\'énergie renouvelable. Vous avez le choix d\'installer des panneaux solaires ou des éoliennes. Lequel choisirez-vous ?';
+    var button2Txt = "Installer des panneaux solaires (Coût : 15 millions de dollars)";
+    var button3Txt = "Installer des éoliennes (Coût : 20 millions de dollars)";
+
+    var fcn2 = phase2_1_2_1;
+    var fcn3 = phase2_1_2_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_1_2Left choice = 2_1_2_1
+function phase2_1_2_1() {
+    updateMoney(-15000000);
+    //Start Text
+    var txt = 'Vous installez des panneaux solaires à Churchill. La communauté bénéficie d\'une énergie propre et fiable. Que ferez-vous ensuite ?';
+    var button2Txt = "Étendre le projet solaire (Coût : 10 millions de dollars)";
+    var button3Txt = "Éduquer la communauté sur les énergies renouvelables (Coût : 5 millions de dollars)";
+
+    var fcn2 = phase2_1_2_1_1;
+    var fcn3 = phase2_1_2_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_1_2Left choice = 2_1_2_1_1
+function phase2_1_2_1_1() {
+    updateMoney(-10000000);
+    //Start Text
+    var txt = 'Vous étendez le projet solaire, augmentant sa capacité et son impact. Churchill bénéficie grandement de vos efforts. Que ferez-vous ensuite ?';
+    var button2Txt = "S'associer avec les gouvernements locaux (Coût : 15 millions de dollars)";
+    var button3Txt = "Offrir des actions dans le projet (Gain : 20 millions de dollars)";
+
+    var fcn2 = phase2_1_2_1_1_1;
+    var fcn3 = phase2_1_2_1_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_1_2Left choice = 2_1_2_1_1_1
+function phase2_1_2_1_1_1() {
+    updateMoney(-15000000);
+    //Start Text
+    var txt = 'Vous vous associez aux gouvernements locaux pour étendre le projet solaire aux villes voisines. Ce partenariat vise à augmenter la capacité globale et la portée du projet, en promouvant la durabilité et l\'implication communautaire sur une plus grande zone.';
+    var button2Txt = "Vendre des crédits d'énergie renouvelable (Gain : 10 millions de dollars)";
+    var button3Txt = "Demander des subventions de développement régional (Gain : 5 millions de dollars)";
+
+    var fcn2 = phase2_1_2_1_1_1_1;
+    var fcn3 = phase2_1_2_1_1_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_1_2Left choice = 2_1_2_1_1_1_1
+function phase2_1_2_1_1_1_1() {
+    updateMoney(10000000);
+    //Start Text
+    var txt = 'Vous vendez des crédits d\'énergie renouvelable générés par le projet solaire étendu. Cette initiative génère non seulement des revenus supplémentaires, mais soutient également l\'approvisionnement énergétique global avec de l\'énergie propre et renouvelable.';
+    var nstep = "La vente de crédits d'énergie renouvelable génère des revenus supplémentaires, rendant le projet financièrement durable et fournissant une source de revenus stable. (Gain : 10 millions de dollars en revenus)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_1_1_2Right choice = 2_1_1_2_1
+function phase2_1_1_2_2_1_2() {
+    updateMoney(4000000);
+    //Start Text
+    var txt = "Vous demandez des rabais gouvernementaux pour soutenir le programme d'incitations élargi. Ces rabais sont conçus pour encourager l'efficacité énergétique et peuvent fournir un soutien financier significatif pour assurer le succès du programme.";
+    var nstep = "Les rabais gouvernementaux fournissent un financement supplémentaire, rendant le programme financièrement durable et encourageant davantage de résidents à participer. (Gain : 4 millions de dollars en rabais)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_1Right choice = 2_1_2
+function phase2_1_2() {
+    updateMoney(-15000000);
+    //Start Text
+    var txt = 'Vous décidez d\'introduire des solutions d\'énergie renouvelable. Vous avez le choix d\'installer des panneaux solaires ou des éoliennes. Lequel choisirez-vous ?';
+    var button2Txt = "Installer des panneaux solaires (Coût : 15 millions de dollars)";
+    var button3Txt = "Installer des éoliennes (Coût : 20 millions de dollars)";
+
+    var fcn2 = phase2_1_2_1;
+    var fcn3 = phase2_1_2_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_1_2Left choice = 2_1_2_1
+function phase2_1_2_1() {
+    updateMoney(-15000000);
+    //Start Text
+    var txt = 'Vous installez des panneaux solaires à Churchill. La communauté bénéficie d\'une énergie propre et fiable. Que ferez-vous ensuite ?';
+    var button2Txt = "Étendre le projet solaire (Coût : 10 millions de dollars)";
+    var button3Txt = "Éduquer la communauté sur les énergies renouvelables (Coût : 5 millions de dollars)";
+
+    var fcn2 = phase2_1_2_1_1;
+    var fcn3 = phase2_1_2_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_1_2Left choice = 2_1_2_1_1
+function phase2_1_2_1_1() {
+    updateMoney(-10000000);
+    //Start Text
+    var txt = 'Vous étendez le projet solaire, augmentant sa capacité et son impact. Churchill bénéficie grandement de vos efforts. Que ferez-vous ensuite ?';
+    var button2Txt = "S'associer avec les gouvernements locaux (Coût : 15 millions de dollars)";
+    var button3Txt = "Offrir des actions dans le projet (Gain : 20 millions de dollars)";
+
+    var fcn2 = phase2_1_2_1_1_1;
+    var fcn3 = phase2_1_2_1_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_1_2Left choice = 2_1_2_1_1_1
+function phase2_1_2_1_1_1() {
+    updateMoney(-15000000);
+    //Start Text
+    var txt = 'Vous vous associez aux gouvernements locaux pour étendre le projet solaire aux villes voisines. Ce partenariat vise à augmenter la capacité globale et la portée du projet, en promouvant la durabilité et l\'implication communautaire sur une plus grande zone.';
+    var button2Txt = "Vendre des crédits d'énergie renouvelable (Gain : 10 millions de dollars)";
+    var button3Txt = "Demander des subventions de développement régional (Gain : 5 millions de dollars)";
+
+    var fcn2 = phase2_1_2_1_1_1_1;
+    var fcn3 = phase2_1_2_1_1_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_1_2Left choice = 2_1_2_1_1_1_1
+function phase2_1_2_1_1_1_1() {
+    updateMoney(10000000);
+    //Start Text
+    var txt = 'Vous vendez des crédits d\'énergie renouvelable générés par le projet solaire étendu. Cette initiative génère non seulement des revenus supplémentaires, mais soutient également l\'approvisionnement énergétique global avec de l\'énergie propre et renouvelable.';
+    var nstep = "La vente de crédits d'énergie renouvelable génère des revenus supplémentaires, rendant le projet financièrement durable et fournissant une source de revenus stable. (Gain : 10 millions de dollars en revenus)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+//Phase 2_1_2Left choice = 2_1_2_1
+function phase2_1_2_1_1_1_2() {
+    updateMoney(5000000);
+    //Start Text
+    var txt = 'Vous demandez des subventions de développement régional pour soutenir l\'expansion du projet solaire. Ces subventions sont conçues pour promouvoir des initiatives de développement régional et peuvent fournir un soutien financier significatif pour assurer le succès du projet.';
+    var nstep = "Les subventions de développement régional fournissent un financement supplémentaire, assurant le succès du projet et permettant une expansion et des améliorations supplémentaires. (Gain : 5 millions de dollars en subventions)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_1_2Left choice = 2_1_2_1
+function phase2_1_2_1_1_2() {
+    updateMoney(20000000);
+    //Start Text
+    var txt = 'Vous offrez des actions dans le projet pour attirer des investisseurs privés. Cette initiative vise à générer des fonds importants pour l\'expansion du projet solaire, assurant son succès et promouvant les initiatives d\'énergie renouvelable.';
+    var button2Txt = "S'associer avec une grande entreprise (Gain : 20 millions de dollars)";
+    var button3Txt = "Rechercher des investisseurs internationaux (Gain : 15 millions de dollars)";
+
+    var fcn2 = phase2_1_2_1_1_2_1;
+    var fcn3 = phase2_1_2_1_1_2_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_1_2Left choice = 2_1_2_1
+function phase2_1_2_1_1_2_1() {
+    updateMoney(20000000);
+    //Start Text
+    var txt = 'Vous vous associez à une grande entreprise pour soutenir le projet solaire. Ce partenariat fournit des fonds et des ressources supplémentaires, assurant le succès du projet et promouvant les initiatives d\'énergie renouvelable à plus grande échelle.';
+    var nstep = "Le partenariat avec une grande entreprise renforce le succès du projet, en faisant un modèle pour l'énergie renouvelable au Canada. (Coût : 10 millions de dollars, Gain : 30 millions de dollars en investissement d'entreprise)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_1_2Left choice = 2_1_2_1
+function phase2_1_2_1_1_2_2() {
+    updateMoney(15000000);
+    //Start Text
+    var txt = 'Vous recherchez des investisseurs internationaux pour soutenir le projet solaire. Cette initiative vise à attirer des fonds importants de sources mondiales, assurant le succès du projet et promouvant les initiatives d\'énergie renouvelable à l\'échelle internationale.';
+    var nstep = "L'investissement international aide à étendre le projet, en faisant un succès mondial et en promouvant les initiatives d'énergie renouvelable dans le monde entier. (Coût : 10 millions de dollars, Gain : 25 millions de dollars en investissement international)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_1_2Left choice = 2_1_2_1
+function phase2_1_2_1_2() {
+    updateMoney(-5000000);
+    //Start Text
+    var txt = 'Vous éduquez la communauté sur les énergies renouvelables et la durabilité. Les gens sont inspirés à apporter des changements positifs.';
+    var nstep = "Vos efforts éducatifs ont permis à Churchill d'adopter les énergies renouvelables. Vous êtes maintenant invité à diriger une campagne nationale sur l'éducation aux énergies renouvelables. (Coût : 15 millions de dollars, Gain : 30 millions de dollars en soutien national)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_1_2Left choice = 2_1_2_1
+function phase2_1_2_2() {
+    updateMoney(-20000000);
+    //Start Text
+    var txt = 'Vous installez des éoliennes à Churchill. La communauté bénéficie d\'une énergie propre et fiable. Que ferez-vous ensuite ?';
+    var button2Txt = "Étendre le projet éolien (Coût : 15 millions de dollars)";
+    var button3Txt = "Éduquer la communauté sur les énergies renouvelables (Coût : 5 millions de dollars)";
+
+    var fcn2 = phase2_1_2_2_1;
+    var fcn3 = phase2_1_2_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_1_2Left choice = 2_1_2_1
+function phase2_1_2_2_1() {
+    updateMoney(-15000000);
+    //Start Text
+    var txt = 'Vous étendez le projet éolien, augmentant sa capacité et son impact. La communauté bénéficie grandement de vos efforts.';
+    var nstep = "Le projet éolien étendu a fait de Churchill un leader en énergie renouvelable. Vous êtes maintenant invité à exporter de l'énergie éolienne aux États-Unis. (Coût : 20 millions de dollars, Gain : 50 millions de dollars en revenus d'exportation)";
+
+    var fcn2 = phase2_1_2_1_1;
+    var fcn3 = phase2_1_2_1_2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_Right choice = 2_2
+function phase2_2() {
+    //Start Text
+    var txt = 'Vous décidez de développer un projet d\'énergie renouvelable dans une ville. Vous avez le choix de construire une ferme solaire ou une ferme éolienne. Lequel choisirez-vous ?';
+    var button2Txt = "Construire une ferme solaire (Coût : 30 millions de dollars)";
+    var button3Txt = "Construire une ferme éolienne (Coût : 35 millions de dollars)";
+    
+    var fcn2 = phase2_2_1;
+    var fcn3 = phase2_2_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1() {
+    updateMoney(-30000000);
+    //Start Text
+    var txt = 'Vous construisez une ferme solaire à Brandon. Elle commence à générer de l\'énergie propre pour la communauté. Que ferez-vous ensuite ?';
+    var button2Txt = "Étendre la ferme solaire (Coût : 20 millions de dollars)";
+    var button3Txt = "Introduire une solution de stockage d'énergie (Gain : 30 millions de dollars)";
+    
+    var fcn2 = phase2_2_1_1;
+    var fcn3 = phase2_2_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_2() {        
+    updateMoney(-25000000);
+    //Start Text
+    var txt = 'Vous introduisez des solutions de stockage d\'énergie pour compléter vos projets d\'énergie renouvelable. Cela assure un approvisionnement énergétique stable même lorsque le vent ne souffle pas.';
+    var nstep = "Les solutions de stockage d'énergie ont assuré un approvisionnement énergétique stable et fiable. Vous êtes maintenant invité à présenter vos solutions lors d'un sommet international sur l'énergie. (Coût : 15 millions de dollars, Gain : 45 millions de dollars en financement international)";
+    
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_1() {
+    updateMoney(-20000000);
+    //Start Text
+    var txt = 'Vous étendez la ferme solaire, augmentant sa capacité et son impact. La communauté bénéficie grandement de vos efforts. Que ferez-vous ensuite ?';
+    // var nstep = "La ferme solaire étendue a considérablement réduit l'empreinte carbone de Brandon. Vous êtes maintenant invité à exporter de l'énergie solaire aux États-Unis. (Coût : 25 millions de dollars, Gain : 60 millions de dollars en revenus d'exportation)";
+    
+    var btn2 = "Introduire des réseaux intelligents (Coût : 15 millions de dollars)";
+    var btn3 = "Développer un programme de réponse à la demande (Coût : 5 millions de dollars)";
+
+    var fcn2 = phase2_2_1_1_1;
+    var fcn3 = phase2_2_1_1_2;
+    phase(txt, btn2, btn3, fcn2, fcn3);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_1_1() {
+    updateMoney(-15000000);
+    //Start Text
+    var txt = 'Vous décidez d\'introduire la technologie des réseaux intelligents pour améliorer la gestion de l\'énergie. Que ferez-vous ensuite ?';
+    
+    var btn2 = "Introduire des compteurs intelligents (Coût : 10 millions de dollars)";
+    var btn3 = "Développer un programme de réponse à la demande (Coût : 5 millions de dollars)";
+
+    var fcn2 = phase2_2_1_1_1_1;
+    var fcn3 = phase2_2_1_1_2;
+    phase(txt, btn2, btn3, fcn2, fcn3);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_1_1_1() {
+    updateMoney(-10000000);
+    //Start Text
+    var txt = 'Vous mettez en place des compteurs intelligents pour surveiller et gérer la consommation d\'énergie. Ces compteurs fournissent des données en temps réel sur la consommation d\'énergie, aidant les résidents et les entreprises à optimiser leur utilisation de l\'énergie et à réduire les coûts. Que ferez-vous ensuite ?';
+    
+    var btn2 = "S'associer avec une entreprise technologique (Gain : 10 millions de dollars)";
+    var btn3 = "Offrir des incitations pour l'adoption des compteurs intelligents (Gain : 7 millions de dollars)";
+
+    var fcn2 = phase2_2_1_1_1_1_1;
+    var fcn3 = phase2_2_1_1_1_1_2;
+    phase(txt, btn2, btn3, fcn2, fcn3);
+}
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_1_1_1_1() {
+    updateMoney(10000000);
+    //Start Text
+    var txt = 'Vous vous associez à une entreprise technologique pour améliorer le réseau intelligent. Ce partenariat fournit une technologie avancée et une expertise, assurant la mise en œuvre et le fonctionnement réussis du réseau intelligent.';
+    var nstep = 'Le partenariat avec une entreprise technologique améliore le réseau intelligent, en faisant un modèle pour d\'autres régions et en attirant des investissements supplémentaires. (Coût : 5 millions de dollars, Gain : 15 millions de dollars en soutien technologique)';
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_1_1_1_2() {
+    updateMoney(7000000);
+    //Start Text
+    var txt = 'Vous offrez des incitations aux résidents pour adopter des compteurs intelligents. Ces incitations encouragent une adoption généralisée, aidant à améliorer la gestion de l\'énergie et à réduire la consommation globale d\'énergie.';
+    var nstep = 'Les incitations encouragent les résidents à adopter des compteurs intelligents, conduisant à une meilleure gestion de l\'énergie et à des économies d\'énergie significatives. (Coût : 3 millions de dollars, Gain : 10 millions de dollars en économies d\'énergie)';
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    phase(txt, btn2, btn3, fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_1_2() {
+    updateMoney(-5000000);
+    //Start Text
+    var txt = 'Vous développez un programme de réponse à la demande pour gérer l\'utilisation de l\'énergie pendant les périodes de pointe. Ce programme aide à équilibrer la charge sur le réseau, réduisant le risque de pannes et améliorant la stabilité globale du réseau. Que ferez-vous ensuite ?';
+    
+    var btn2 = "Étendre le programme pour inclure les entreprises (Coût : 5 millions de dollars)";
+    var btn3 = "Introduire une tarification selon l'heure d'utilisation (Coût : 3 millions de dollars)";
+
+    var fcn2 = phase2_2_1_1_2_1;
+    var fcn3 = phase2_2_1_1_2_2;
+    phase(txt, btn2, btn3, fcn2, fcn3);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_1_2_1() {
+    updateMoney(-5000000);
+    //Start Text
+    var txt = 'Vous étendez le programme de réponse à la demande pour inclure les entreprises locales. Cette expansion aide à réduire davantage la demande de pointe, améliorant la stabilité du réseau et promouvant l\'efficacité énergétique dans toute la communauté. Que ferez-vous ensuite ?';
+    
+    var btn2 = "S'associer avec de grandes entreprises (Gain : 10 millions de dollars)";
+    var btn3 = "Offrir des incitations pour la participation (Gain : 7 millions de dollars)";
+
+    var fcn2 = phase2_2_1_1_2_1_1;
+    var fcn3 = phase2_2_1_1_2_1_2;
+    phase(txt, btn2, btn3, fcn2, fcn3);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_1_2_1_1() {
+    updateMoney(10000000);
+    //Start Text
+    var txt = 'Vous vous associez à de grandes entreprises pour soutenir le programme de réponse à la demande. Ce partenariat fournit des fonds et des ressources supplémentaires, assurant le succès du programme et promouvant l\'efficacité énergétique à plus grande échelle.';
+    
+    var nstep = "Le partenariat avec de grandes entreprises réduit considérablement la demande de pointe, améliorant la stabilité du réseau et obtenant une reconnaissance nationale. (Coût : 10 millions de dollars, Gain : 20 millions de dollars en soutien des entreprises)";
+
+    var fcn2 = phase2_2_1_1_2_1;
+    var fcn3 = phase2_2_1_1_2_2;
+    phase(txt, btn2, btn3, fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_1_2_1_2() {
+    updateMoney(7000000);
+    //Start Text
+    var txt = 'Vous offrez des incitations aux entreprises pour participer au programme de réponse à la demande. Ces incitations encouragent une participation généralisée, aidant à réduire la demande de pointe et à améliorer la fiabilité du réseau.';
+    
+    var nstep = "Les incitations encouragent une participation généralisée, conduisant à une réduction réussie de la demande de pointe et à une amélioration de la fiabilité du réseau. (Coût : 3 millions de dollars, Gain : 10 millions de dollars en soutien des entreprises)";
+
+    var fcn2 = phase2_2_1_1_2_1;
+    var fcn3 = phase2_2_1_1_2_2;
+    phase(txt, btn2, btn3, fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_1_2_2() {
+    updateMoney(-3000000);
+    //Start Text
+    var txt = 'Vous introduisez une tarification selon l\'heure d\'utilisation pour encourager l\'utilisation de l\'énergie en dehors des heures de pointe. Ce modèle de tarification aide à déplacer la consommation d\'énergie vers les heures creuses, réduisant la pression sur le réseau et promouvant l\'efficacité énergétique. Que ferez-vous ensuite ?';
+    
+    var btn2 = "Étendre le programme de tarification (Gain : 8 millions de dollars)";
+    var btn3 = "S'associer avec les services publics locaux (Gain : 4 millions de dollars)";
+
+    var fcn2 = phase2_2_1_1_2_2_1;
+    var fcn3 = phase2_2_1_1_2_2_2;
+    phase(txt, btn2, btn3, fcn2, fcn3);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_1_2_2_1() {
+    updateMoney(8000000);
+    //Start Text
+    var txt = 'Vous étendez le programme de tarification selon l\'heure d\'utilisation pour inclure plus de clients. Cette expansion aide à réduire davantage la demande de pointe, améliorant la stabilité du réseau et promouvant l\'efficacité énergétique dans toute la communauté.';
+    
+    var nstep = "Le programme de tarification étendu déplace avec succès l'utilisation de l'énergie vers les heures creuses, réduisant la pression sur le réseau et recevant les éloges des experts en énergie. (Coût : 2 millions de dollars, Gain : 10 millions de dollars en économies d'énergie)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    phase(txt, btn2, btn3, fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_1_2_2_2() {
+    updateMoney(4000000);
+    //Start Text
+    var txt = 'Vous vous associez aux services publics locaux pour mettre en œuvre la tarification selon l\'heure d\'utilisation. Ce partenariat fournit des fonds et des ressources supplémentaires, assurant le succès du programme et promouvant l\'efficacité énergétique dans toute la communauté.';
+    
+    var nstep = "Le partenariat avec les services publics locaux assure le succès du programme, conduisant à une meilleure gestion de l'énergie et à la satisfaction des clients. (Coût : 1 million de dollars, Gain : 5 millions de dollars en soutien des services publics)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    phase(txt, btn2, btn3, fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2() {
+    updateMoney(-35000000);
+    //Start Text
+    var txt = 'Vous construisez une ferme éolienne à Winnipeg. Elle commence à générer de l\'énergie propre pour la communauté. Que ferez-vous ensuite ?';
+    var button2Txt = "Étendre la ferme éolienne (Coût : 20 millions de dollars)";
+    var button3Txt = "Éduquer la communauté sur les énergies renouvelables (Coût : 10 millions de dollars)";
+    
+    var fcn2 = phase2_2_2_1;
+    var fcn3 = phase2_2_2_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1() {
+    updateMoney(-20000000);
+    //Start Text
+    var txt = 'Vous étendez la ferme éolienne, augmentant sa capacité et son impact. Que ferez-vous ensuite ?';
+    var button2Txt = "Étendre pour inclure le stockage par batterie (Coût : 15 millions de dollars)";
+    var button3Txt = "Demander une subvention gouvernementale (Gain : 10 millions de dollars)";
+    
+    var fcn2 = phase2_2_2_1_1;
+    var fcn3 = phase2_2_2_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_1() {
+    updateMoney(-15000000);
+    //Start Text
+    var txt = 'Vous décidez d\'étendre la ferme éolienne pour inclure le stockage par batterie. Que ferez-vous ensuite ?';
+    var button2Txt = "S'associer avec un fabricant de batteries (Coût : 20 millions de dollars)";
+    var button3Txt = "Demander une subvention gouvernementale (Coût : 10 millions de dollars)";
+    
+    var fcn2 = phase2_2_2_1_1_1;
+    var fcn3 = phase2_2_2_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_1_1() {
+    updateMoney(-20000000);
+    //Start Text
+    var txt = 'Vous vous associez à un fabricant de batteries pour intégrer des solutions de stockage. Ce partenariat fournit une technologie avancée et une expertise, assurant la mise en œuvre et le fonctionnement réussis du système de stockage par batterie. Que ferez-vous ensuite ?';
+    var button2Txt = "Demander des subventions fédérales (Coût : 5 millions de dollars)";
+    var button3Txt = "Offrir des contrats à long terme au fabricant (Coût : 10 millions de dollars)";
+    
+    var fcn2 = phase2_2_2_1_1_1_1;
+    var fcn3 = phase2_2_2_1_1_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_1_2_2() {
+    updateMoney(-3000000);
+    //Start Text
+    var txt = 'Vous introduisez une tarification selon l\'heure d\'utilisation pour encourager l\'utilisation de l\'énergie en dehors des heures de pointe. Ce modèle de tarification aide à déplacer la consommation d\'énergie vers les heures creuses, réduisant la pression sur le réseau et promouvant l\'efficacité énergétique. Que ferez-vous ensuite ?';
+    
+    var btn2 = "Étendre le programme de tarification (Gain : 8 millions de dollars)";
+    var btn3 = "S'associer avec les services publics locaux (Gain : 4 millions de dollars)";
+
+    var fcn2 = phase2_2_1_1_2_2_1;
+    var fcn3 = phase2_2_1_1_2_2_2;
+    phase(txt, btn2, btn3, fcn2, fcn3);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_1_2_2_1() {
+    updateMoney(8000000);
+    //Start Text
+    var txt = 'Vous étendez le programme de tarification selon l\'heure d\'utilisation pour inclure plus de clients. Cette expansion aide à réduire davantage la demande de pointe, améliorant la stabilité du réseau et promouvant l\'efficacité énergétique dans toute la communauté.';
+    
+    var nstep = "Le programme de tarification étendu déplace avec succès l'utilisation de l'énergie vers les heures creuses, réduisant la pression sur le réseau et recevant les éloges des experts en énergie. (Coût : 2 millions de dollars, Gain : 10 millions de dollars en économies d'énergie)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    phase(txt, btn2, btn3, fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Left choice = 2_2_1
+function phase2_2_1_1_2_2_2() {
+    updateMoney(4000000);
+    //Start Text
+    var txt = 'Vous vous associez aux services publics locaux pour mettre en œuvre la tarification selon l\'heure d\'utilisation. Ce partenariat fournit des fonds et des ressources supplémentaires, assurant le succès du programme et promouvant l\'efficacité énergétique dans toute la communauté.';
+    
+    var nstep = "Le partenariat avec les services publics locaux assure le succès du programme, conduisant à une meilleure gestion de l'énergie et à la satisfaction des clients. (Coût : 1 million de dollars, Gain : 5 millions de dollars en soutien des services publics)";
+
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    phase(txt, btn2, btn3, fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2() {
+    updateMoney(-35000000);
+    //Start Text
+    var txt = 'Vous construisez une ferme éolienne à Winnipeg. Elle commence à générer de l\'énergie propre pour la communauté. Que ferez-vous ensuite ?';
+    var button2Txt = "Étendre la ferme éolienne (Coût : 20 millions de dollars)";
+    var button3Txt = "Éduquer la communauté sur les énergies renouvelables (Coût : 10 millions de dollars)";
+    
+    var fcn2 = phase2_2_2_1;
+    var fcn3 = phase2_2_2_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1() {
+    updateMoney(-20000000);
+    //Start Text
+    var txt = 'Vous étendez la ferme éolienne, augmentant sa capacité et son impact. Que ferez-vous ensuite ?';
+    var button2Txt = "Étendre pour inclure le stockage par batterie (Coût : 15 millions de dollars)";
+    var button3Txt = "Demander une subvention gouvernementale (Gain : 10 millions de dollars)";
+    
+    var fcn2 = phase2_2_2_1_1;
+    var fcn3 = phase2_2_2_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_1() {
+    updateMoney(-15000000);
+    //Start Text
+    var txt = 'Vous décidez d\'étendre la ferme éolienne pour inclure le stockage par batterie. Que ferez-vous ensuite ?';
+    var button2Txt = "S'associer avec un fabricant de batteries (Coût : 20 millions de dollars)";
+    var button3Txt = "Demander une subvention gouvernementale (Coût : 10 millions de dollars)";
+    
+    var fcn2 = phase2_2_2_1_1_1;
+    var fcn3 = phase2_2_2_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_1_1() {
+    updateMoney(-20000000);
+    //Start Text
+    var txt = 'Vous vous associez à un fabricant de batteries pour intégrer des solutions de stockage. Ce partenariat fournit une technologie avancée et une expertise, assurant la mise en œuvre et le fonctionnement réussis du système de stockage par batterie. Que ferez-vous ensuite ?';
+    var button2Txt = "Demander des subventions fédérales (Coût : 5 millions de dollars)";
+    var button3Txt = "Offrir des contrats à long terme au fabricant (Coût : 10 millions de dollars)";
+    
+    var fcn2 = phase2_2_2_1_1_1_1;
+    var fcn3 = phase2_2_2_1_1_1_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_1_1_1() {
+    updateMoney(-5000000);
+    //Start Text
+    var txt = 'Vous demandez des subventions fédérales pour soutenir le projet de stockage par batterie. Ces subventions sont conçues pour promouvoir les initiatives d\'énergie renouvelable et peuvent fournir un soutien financier significatif pour assurer le succès du projet.';
+    var nstep = "Les subventions fédérales aident à financer le projet, en faisant un modèle de stockage d'énergie renouvelable au Canada. (Coût : 20 millions de dollars, Gain : 15 millions de dollars en subventions fédérales)";
+    
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_1_1_2() {
+    updateMoney(-10000000);
+    //Start Text
+    var txt = 'Vous offrez des contrats à long terme pour sécuriser le partenariat avec le fabricant de batteries. Ces contrats fournissent des flux de revenus stables et à long terme, assurant la durabilité financière du projet et promouvant les initiatives d\'énergie renouvelable.';
+    var nstep = "Les contrats à long terme sécurisent le partenariat, assurant le succès et la stabilité du projet. (Coût : 20 millions de dollars, Gain : 10 millions de dollars en revenus de contrats)";
+    
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_2() {
+    updateMoney(10000000);
+    //Start Text
+    var txt = 'Vous demandez des subventions gouvernementales pour financer le projet de stockage par batterie. Ces subventions sont conçues pour promouvoir les initiatives d\'énergie renouvelable et peuvent fournir un soutien financier significatif pour assurer le succès du projet. Que ferez-vous ensuite ?';
+    var button2Txt = "Demander des subventions fédérales (Gain : 10 millions de dollars)";
+    var button3Txt = "Demander des subventions provinciales (Gain : 5 millions de dollars)";
+    
+    var fcn2 = phase2_2_2_1_2_1;
+    var fcn3 = phase2_2_2_1_2_2;
+    
+    phase(txt, "", "", fcn2, fcn3);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_2_1() {
+    updateMoney(10000000);
+    //Start Text
+    var txt = 'Vous demandez des subventions fédérales pour sécuriser le financement du projet. Ces subventions visent à soutenir les projets d\'énergie renouvelable à grande échelle et peuvent fournir un soutien financier substantiel. Que ferez-vous ensuite ?';
+    var button2Txt = "S'associer avec une institution de recherche (Coût : 5 millions de dollars)";
+    var button3Txt = "Offrir des actions communautaires dans le projet (Coût : 7 millions de dollars)";
+    
+    var fcn2 = phase2_2_2_1_2_1_1;
+    var fcn3 = phase2_2_2_1_2_1_2;
+    
+    phase(txt, "", "", fcn2, fcn3);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_2_1_1() {
+    updateMoney(-5000000);
+    //Start Text
+    var txt = 'Vous vous associez à une institution de recherche pour renforcer la crédibilité du projet. Ce partenariat fournit une expertise et des ressources supplémentaires, assurant le succès du projet et promouvant la recherche en énergie renouvelable.';
+    var nstep = "Le partenariat avec une institution de recherche renforce la crédibilité du projet, conduisant à une mise en œuvre réussie et à une reconnaissance internationale. (Coût : 10 millions de dollars, Gain : 5 millions de dollars en subventions de recherche)";
+    
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_2_1_2() {
+    updateMoney(-7000000);
+    //Start Text
+    var txt = 'Vous offrez des actions communautaires pour augmenter le soutien local au projet. Cette initiative encourage l\'investissement communautaire, assurant le succès du projet et promouvant l\'implication locale dans les initiatives d\'énergie renouvelable.';
+    var nstep = "Le programme d'actions communautaires augmente le soutien local, assurant le succès et la stabilité du projet. (Coût : 10 millions de dollars, Gain : 3 millions de dollars en investissements communautaires)";
+    
+    var fcn2 = phase2;
+    var fcn3 = phase2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_2_2() {
+    updateMoney(5000000);
+    //Start Text
+    var txt = 'Vous demandez des subventions provinciales pour obtenir un financement supplémentaire. Ces subventions sont conçues pour soutenir les projets régionaux d\'énergie renouvelable et peuvent fournir un soutien financier significatif. Que ferez-vous ensuite ?';
+    var button2Txt = "S'associer avec des entreprises locales (Coût : 8 millions de dollars)";
+    var button3Txt = "Offrir des incitations pour les investissements communautaires (Coût : 9 millions de dollars)";
+    
+    var fcn2 = phase2_2_2_1_2_2_1;
+    var fcn3 = phase2_2_2_1_2_2_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_2_2_1() {
+    updateMoney(-8000000);
+    //Start Text
+    var txt = 'Vous vous associez à des entreprises locales pour soutenir le projet de stockage par batterie. Ce partenariat fournit des fonds et des ressources supplémentaires, assurant le succès du projet et promouvant les initiatives d\'énergie renouvelable au sein de la communauté.';
+    var nstep = "Le partenariat avec les entreprises locales renforce le succès du projet, en faisant un modèle de stockage d'énergie renouvelable dans la province. (Coût : 10 millions de dollars, Gain : 2 millions de dollars en soutien des entreprises)";
+    
+    var fcn2 = phase2_2_2_1;
+    var fcn3 = phase2_2_2_2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_2_2_2() {
+    updateMoney(-9000000);
+    //Start Text
+    var txt = 'Vous offrez des incitations pour encourager les investissements communautaires dans le projet. Ces incitations favorisent l\'implication et le soutien locaux, assurant le succès et la stabilité du projet.';
+    var nstep = "Les incitations encouragent les investissements communautaires, conduisant à un soutien généralisé et à une mise en œuvre réussie du projet. (Coût : 10 millions de dollars, Gain : 1 million de dollars en investissements communautaires)";
+    
+    var fcn2 = phase2_2_2_1;
+    var fcn3 = phase2_2_2_2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_2() {
+    updateMoney(5000000);
+    //Start Text
+    var txt = 'Vous éduquez la communauté sur les énergies renouvelables et la durabilité. Les gens sont inspirés à apporter des changements positifs.';
+    var nstep = "Vos initiatives éducatives ont permis à la communauté d'adopter les énergies renouvelables. Vous êtes maintenant invité à diriger une campagne nationale sur l'éducation aux énergies renouvelables. (Coût : 15 millions de dollars, Gain : 30 millions de dollars en soutien national)";
+    
+    var fcn2 = phase2_2_2_1;
+    var fcn3 = phase2_2_2_2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_2_2() {
+    updateMoney(5000000);
+    //Start Text
+    var txt = 'Vous demandez des subventions provinciales pour obtenir un financement supplémentaire. Ces subventions sont conçues pour soutenir les projets régionaux d\'énergie renouvelable et peuvent fournir un soutien financier significatif. Que ferez-vous ensuite ?';
+    var button2Txt = "S'associer avec des entreprises locales (Coût : 8 millions de dollars)";
+    var button3Txt = "Offrir des incitations pour les investissements communautaires (Coût : 9 millions de dollars)";
+    
+    var fcn2 = phase2_2_2_1_2_2_1;
+    var fcn3 = phase2_2_2_1_2_2_2;
+    
+    phase(txt, button2Txt, button3Txt, fcn2, fcn3);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_2_2_1() {
+    updateMoney(-8000000);
+    //Start Text
+    var txt = 'Vous vous associez à des entreprises locales pour soutenir le projet de stockage par batterie. Ce partenariat fournit des fonds et des ressources supplémentaires, assurant le succès du projet et promouvant les initiatives d\'énergie renouvelable au sein de la communauté.';
+    var nstep = "Le partenariat avec les entreprises locales renforce le succès du projet, en faisant un modèle de stockage d'énergie renouvelable dans la province. (Coût : 10 millions de dollars, Gain : 2 millions de dollars en soutien des entreprises)";
+    
+    var fcn2 = phase2_2_2_1;
+    var fcn3 = phase2_2_2_2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_1_2_2_2() {
+    updateMoney(-9000000);
+    //Start Text
+    var txt = 'Vous offrez des incitations pour encourager les investissements communautaires dans le projet. Ces incitations favorisent l\'implication et le soutien locaux, assurant le succès et la stabilité du projet.';
+    var nstep = "Les incitations encouragent les investissements communautaires, conduisant à un soutien généralisé et à une mise en œuvre réussie du projet. (Coût : 10 millions de dollars, Gain : 1 million de dollars en investissements communautaires)";
+    
+    var fcn2 = phase2_2_2_1;
+    var fcn3 = phase2_2_2_2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+
+//Phase 2_2Right choice = 2_2_2
+function phase2_2_2_2() {
+    updateMoney(5000000);
+    //Start Text
+    var txt = 'Vous éduquez la communauté sur les énergies renouvelables et la durabilité. Les gens sont inspirés à apporter des changements positifs.';
+    var nstep = "Vos initiatives éducatives ont permis à la communauté d'adopter les énergies renouvelables. Vous êtes maintenant invité à diriger une campagne nationale sur l'éducation aux énergies renouvelables. (Coût : 15 millions de dollars, Gain : 30 millions de dollars en soutien national)";
+    
+    var fcn2 = phase2_2_2_1;
+    var fcn3 = phase2_2_2_2;
+    
+    phase(txt, "", "", fcn2, fcn3, nstep);
+}
+//30 Endings
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Creates Competition Quiz</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            background-color: #e9ecef;
+            color: #343a40;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            width: 100%;
+            overflow: hidden;
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        .question {
+            display: none;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .question.active {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .question label {
+            display: block;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .question input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .question input[type="range"]:hover {
+            opacity: 1;
+        }
+        .question input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #007bff;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .question input[type="range"]::-webkit-slider-thumb:hover {
+            background: #0056b3;
+        }
+        .question input[type="range"]::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #007bff;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .question input[type="range"]::-moz-range-thumb:hover {
+            background: #0056b3;
+        }
+        .question p {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        .navigation {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .navigation button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+        }
+        .navigation button:hover {
+            background-color: #0056b3;
+        }
+        .navigation button:disabled {
+            background-color: #6c757d;
+        }
+        .result {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Energy Creates Competition Quiz</h1>
+        <div id="quiz">
+            <!-- Questions will be dynamically inserted here -->
+        </div>
+        <div class="navigation">
+            <button id="prevBtn" onclick="prevQuestion()" disabled>Previous</button>
+            <button id="nextBtn" onclick="nextQuestion()">Next</button>
+            <button id="submitBtn" onclick="calculateResults()" style="display: none;">Submit</button>
+        </div>
+        <div id="results" class="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "How many cups of coffee do you drink daily?", weight: 2, max: 10, info: "Did you know? The energy used to brew coffee contributes to Canada's vibrant coffee culture." },
+            { question: "How many hours do you spend using electronic devices daily?", weight: 3, max: 24, info: "Canada's tech industry is booming, thanks to our reliable energy infrastructure." },
+            { question: "How many kilometers do you drive daily?", weight: 4, max: 100, info: "Transportation is a major energy consumer. Canada's vast distances make efficient energy use crucial." },
+            { question: "How many times do you use the microwave daily?", weight: 2, max: 10, info: "Microwaves are energy-efficient for quick meals, reflecting our fast-paced lifestyle." },
+            { question: "How many hours do you spend watching TV daily?", weight: 3, max: 24, info: "Entertainment is a big part of Canadian life, powered by our robust energy sector." },
+            { question: "How many times do you use a hair dryer weekly?", weight: 2, max: 14, info: "Personal grooming appliances are small but significant energy users." },
+            { question: "How many hours do you spend using hot water for showers daily?", weight: 5, max: 2, info: "Hot water heating is a major energy use in Canadian homes, especially in winter." },
+            { question: "How many times do you use a dishwasher weekly?", weight: 4, max: 14, info: "Dishwashers save time and water, but they also consume a lot of energy." },
+            { question: "How many hours do you spend using lighting daily?", weight: 2, max: 24, info: "Energy-efficient lighting can significantly reduce energy consumption." },
+            { question: "How many times do you use a clothes dryer weekly?", weight: 4, max: 14, info: "Clothes dryers are among the highest energy-consuming appliances in homes." },
+            { question: "How many hours do you spend using a computer for work or study daily?", weight: 4, max: 24, info: "Remote work and study have increased energy use in Canadian households." },
+            { question: "How many times do you charge your phone daily?", weight: 2, max: 10, info: "Mobile devices are essential in our daily lives, contributing to overall energy use." }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function createQuiz() {
+            const quizContainer = document.getElementById('quiz');
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                if (index === 0) questionDiv.classList.add('active');
+                questionDiv.innerHTML = `
+                    <label for="q${index}">${q.question}</label>
+                    <input type="range" id="q${index}" name="q${index}" min="0" max="${q.max}" value="0" oninput="updateValue(${index}, this.value)">
+                    <span id="q${index}Value">0</span>
+                    <p>${q.info}</p>
+                `;
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function updateValue(index, value) {
+            document.getElementById(`q${index}Value`).textContent = value;
+        }
+
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.question');
+            questions[currentQuestionIndex].classList.remove('active');
+            currentQuestionIndex++;
+            questions[currentQuestionIndex].classList.add('active');
+            document.getElementById('prevBtn').disabled = false;
+            if (currentQuestionIndex === questions.length - 1) {
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('submitBtn').style.display = 'inline-block';
+            }
+        }
+
+        function prevQuestion() {
+            const questions = document.querySelectorAll('.question');
+            questions[currentQuestionIndex].classList.remove('active');
+            currentQuestionIndex--;
+            questions[currentQuestionIndex].classList.add('active');
+            document.getElementById('nextBtn').style.display = 'inline-block';
+            document.getElementById('submitBtn').style.display = 'none';
+            if (currentQuestionIndex === 0) {
+                document.getElementById('prevBtn').disabled = true;
+            }
+        }
+
+        function calculateResults() {
+            let totalEnergyUse = 0;
+            questions.forEach((q, index) => {
+                const userResponse = document.getElementById(`q${index}`).value;
+                const energyUse = userResponse * q.weight;
+                totalEnergyUse += energyUse;
+            });
+
+            let dependencyLevel = '';
+            if (totalEnergyUse < 50) {
+                dependencyLevel = 'Low';
+          } else if (totalEnergyUse >= 50 && totalEnergyUse < 100) {
+                dependencyLevel = 'Moderate';
+            } else {
+                dependencyLevel = 'High';
+            }
+
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = `
+                <p>Your total energy use is: ${totalEnergyUse}</p>
+                <p>Your energy dependency level is: ${dependencyLevel}</p>
+                <p>${getInsights(dependencyLevel)}</p>
+                <p>Thank you for participating in the Energy Creates Competition! Remember, energy is a vital sector that shapes our lives, pumps up the economy, and empowers our country globally.</p>
+            `;
+            document.getElementById('quiz').style.display = 'none';
+            document.querySelector('.navigation').style.display = 'none';
+        }
+
+        function getInsights(dependencyLevel) {
+            if (dependencyLevel === 'Low') {
+                return "You have a low energy dependency. Great job on being energy efficient! Your habits contribute to a sustainable future for Canada.";
+            } else if (dependencyLevel === 'Moderate') {
+                return "You have a moderate energy dependency. There are some areas where you can improve your energy efficiency. Every bit helps in boosting Canada's energy sustainability.";
+            } else {
+                return "You have a high energy dependency. Consider adopting more energy-saving habits to reduce your energy use. Your efforts can help empower Canada on the global stage.";
+            }
+        }
+
+        // Initialize the quiz on page load
+        window.onload = createQuiz;
+    </script>
+</body>
+</html>
