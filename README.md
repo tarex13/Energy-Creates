@@ -40,7 +40,7 @@ Your choices shape the future — balancing money, energy, and outcomes.
 Clone the repo and open the game in your browser:
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/tarex13/Energy-Creates.git
 cd ecoquest
 open index.html
 ```
